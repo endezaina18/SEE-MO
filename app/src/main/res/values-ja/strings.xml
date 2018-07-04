@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SampleCBR</string>
+    <string name="action_settings">設定</string>
+    <string name="resolution">解像度</string>
+    <string name="preset">デコーダ基本設定</string>
+    <string name="colorType">カラー設定</string>
+    <string name="codingType">コード方式</string>
+    <string name="downscale_title">ダウンスケール</string>
+	<string name="downscale_on">ダウンスケールあり</string>
+    <string name="downscale_off">ダウンスケールなし</string>
+
+</resources>

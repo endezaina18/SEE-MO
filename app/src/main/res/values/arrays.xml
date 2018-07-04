@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="preset">
+        <item>BASIC_CB</item>
+        <item>BASIC_CB_HIGHSPEED</item>
+        <item>DESIGNED_CB</item>
+        <item>DESIGNED_CB_HIGHSPEED</item>
+
+    </string-array>
+
+    <string-array name="presetValues">
+        <item>BASIC_CB</item>
+        <item>BASIC_CB_HIGHSPEED</item>
+        <item>DESIGNED_CB</item>
+        <item>DESIGNED_CB_HIGHSPEED</item>
+    </string-array>
+    
+    <string-array name="colorType">
+        <item>RGB</item>
+        <item>CMY</item>
+        <item>RGB (k-means)</item>
+        <item>CMY (k-means)</item>
+        <item>NONE</item>
+    </string-array>
+    
+    <string-array name="colorTypeValues">
+        <item>RGB</item>
+        <item>CMY</item>
+        <item>RGB_KM</item>
+        <item>CMY_KM</item>
+        <item>NONE</item>
+    </string-array>
+    
+    <string-array name="codingType"> 
+        <item>CRC8</item>
+        <item>P8</item>
+        <item>ORG</item>
+    </string-array>
+    
+    <string-array name="codingTypeValues"> 
+        <item>CRC8</item>
+        <item>P8</item>
+        <item>ORG</item>
+    </string-array>
+
+</resources>

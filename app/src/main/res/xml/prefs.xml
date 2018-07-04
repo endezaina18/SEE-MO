@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <ListPreference
+        android:defaultValue="0"
+        android:key="resolution"
+        android:title="@string/resolution" />
+    
+    <ListPreference
+        android:defaultValue="NORMAL"
+        android:key="preset"
+        android:title="@string/preset"
+        android:entries="@array/preset"
+        android:entryValues="@array/presetValues"
+        />
+    
+    <ListPreference
+        android:defaultValue="RGB_KM"
+        android:key="colorType"
+        android:title="@string/colorType"
+        android:entries="@array/colorType"
+        android:entryValues="@array/colorTypeValues"
+        />
+    
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="downscale"
+        android:summaryOff="@string/downscale_off"
+        android:summaryOn="@string/downscale_on"
+        android:title="@string/downscale_title" />
+
+</PreferenceScreen>

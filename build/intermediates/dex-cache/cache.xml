@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\tanaka\Desktop\samplecbr\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0">
+        <dex dex="C:\Users\tanaka\Desktop\samplecbr\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-20.0.0_e93308fc10f619b29e204639313f3f82e343d599.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\tanaka\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\20.0.0\support-annotations-20.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa">
+        <dex dex="C:\Users\tanaka\Desktop\samplecbr\app\build\intermediates\pre-dexed\debug\support-annotations-20.0.0_9d33afa68f63cd65932f465f0917a45fc777ce90.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\tanaka\Desktop\samplecbr\app\libs\colorbitg2lib.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="6f1f64a110503b61508eeffb784a084edcc93e95">
+        <dex dex="C:\Users\tanaka\Desktop\samplecbr\app\build\intermediates\pre-dexed\debug\colorbitg2lib_8b3c7d7d2253511c0ca189fbd4d96e6c172bb598.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\tanaka\Desktop\samplecbr\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\jars\libs\internal_impl-20.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d">
+        <dex dex="C:\Users\tanaka\Desktop\samplecbr\app\build\intermediates\pre-dexed\debug\internal_impl-20.0.0_4842a9a47bab6f43f2d31dde64ac67411ef3b005.jar" />
+    </item>
+
+</items>

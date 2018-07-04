@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="preset">
+        <item>BASIC_CB</item>
+        <item>BASIC_CB_HIGHSPEED</item>
+        <item>DESIGNED_CB</item>
+        <item>DESIGNED_CB_HIGHSPEED</item>
+    </string-array>
+
+</resources>
