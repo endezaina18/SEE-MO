@@ -1,8 +1,10 @@
 package jp.colorbit.samplecbr;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -37,7 +39,7 @@ public class ListActivity extends AppCompatActivity {
         SQLiteDatabase db = helper.getWritableDatabase();
         try {
             // rawQueryというSELECT専用メソッドを使用してデータを取得する
-            Cursor c = db.rawQuery("select uuid, body from MEMO_TABLE order by id", null);
+            Cursor c = db.rawQuery("select uuid, body from MEMO_TABLE where status = 0", null);
             // Cursorの先頭行があるかどうか確認
             boolean next = c.moveToFirst();
 
@@ -63,15 +65,6 @@ public class ListActivity extends AppCompatActivity {
             // dbを開いたら確実にclose
             db.close();
         }
-        /*// 仮のデータを作成
-        ArrayList<HashMap<String, String>> tmpList = new ArrayList<>();
-        for(int i = 1; i <=  5; i++){
-            HashMap<String,String> data = new HashMap<>();
-            // 引数には、(名前,実際の値)という組合せで指定します　名前はSimpleAdapterの引数で使用します
-            data.put("body","サンプルデータ"+i);
-            data.put("id","sampleId"+i);
-            tmpList.add(data);
-        }*/
 
         // Adapter生成
         final SimpleAdapter simpleAdapter = new SimpleAdapter(this,
@@ -114,22 +107,38 @@ public class ListActivity extends AppCompatActivity {
              * @param position 選択した項目の添え字
              * @param id 選択した項目のID
              */
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 // 選択されたビューを取得 TwoLineListItemを取得した後、text2の値を取得する
-                TwoLineListItem two = (TwoLineListItem)view;
-                TextView idTextView = (TextView)two.getText2();
-                String idStr = (String) idTextView.getText();
+                TwoLineListItem two = (TwoLineListItem) view;
+                TextView idTextView = (TextView) two.getText2();
+                final String idStr = (String) idTextView.getText();
 
-                // 長押しした項目をデータベースから削除
-                SQLiteDatabase db = helper.getWritableDatabase();
-                try {
-                    db.execSQL("DELETE FROM MEMO_TABLE WHERE uuid = '"+ idStr +"'");
-                } finally {
-                    db.close();
-                }
-                // 長押しした項目を画面から削除
-                memoList.remove(position);
-                simpleAdapter.notifyDataSetChanged();
+                /*長押しで確認ダイアログ*/
+                AlertDialog.Builder alertD = new AlertDialog.Builder(ListActivity.this);
+                // alertD.setTitle("確認");
+                alertD.setMessage("削除します");
+                alertD.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 長押しした項目をデータベースから削除
+                        SQLiteDatabase db = helper.getWritableDatabase();
+                        try {
+                            //db.execSQL("DELETE FROM MEMO_TABLE WHERE uuid = '" + idStr + "'");
+                            db.execSQL("update MEMO_TABLE set status  =1 where uuid ='"+idStr+"'" );
+                        } finally {
+                            db.close();
+                        }
+
+                        // 長押しした項目を画面から削除
+                        memoList.remove(position);
+                        simpleAdapter.notifyDataSetChanged();
+                    }
+                });
+                alertD.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {}
+                });
+                alertD.create().show();
 
                 // trueにすることで通常のクリックイベントを発生させない
                 return true;
@@ -150,6 +159,33 @@ public class ListActivity extends AppCompatActivity {
                 // CreateMemoActivityへ遷移
                 Intent intent = new Intent(ListActivity.this, jp.colorbit.samplecbr.CreateMemoActivity.class);
                 intent.putExtra("id", "");
+                startActivity(intent);
+            }
+        });
+        /**
+         * 削除履歴
+         * 画面遷移 DeleteHistory
+         */
+        Button deleteHistory = (Button)findViewById(R.id.delete_history);
+        deleteHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(),jp.colorbit.samplecbr.DeleteHistoryActivity.class);
+                startActivity(intent);
+            }
+        });
+        /**
+         * カメラボタン処理
+         */
+        // idがnewButtonのボタンを取得
+        Button cameraButton = (Button) findViewById(R.id.camera);
+        // clickイベント追加
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //EmptyActivityへ遷移
+                Intent intent = new Intent(getApplication(), jp.colorbit.samplecbr.MainActivity.class);
                 startActivity(intent);
             }
         });

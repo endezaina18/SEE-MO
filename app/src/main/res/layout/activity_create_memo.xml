@@ -14,7 +14,28 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context="com.android.tatsu.simplememo.CreateMemoActivity">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
 
+            <Button
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="戻る"
+                />
+            <Button
+                android:id="@+id/register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="登録する"
+                />
+
+        </LinearLayout>
         <EditText
             android:id="@+id/body"
             android:layout_width="match_parent"
@@ -25,31 +46,6 @@
             android:layout_weight="9"
             android:gravity="top|left"
             />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="1">
-
-            <Button
-                android:id="@+id/register"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="登録する"
-                />
-
-            <Button
-                android:id="@+id/back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="戻る"
-                />
-
-        </LinearLayout>
-
 
     </LinearLayout>
 

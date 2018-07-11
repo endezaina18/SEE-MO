@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ToggleButton;
@@ -32,7 +33,7 @@ public class MainActivity extends Activity implements Camera.AutoFocusCallback {
 	
 	private CBController controller;
 
-	private ToggleButton lightButton;
+	//private ToggleButton lightButton;
 	private ToggleButton focusButton;
 	private ToggleButton soundButton;
 	
@@ -58,11 +59,11 @@ public class MainActivity extends Activity implements Camera.AutoFocusCallback {
 					}
 				});
 
-		lightButton = (ToggleButton) findViewById(R.id.LightButton);
+		//lightButton = (ToggleButton) findViewById(R.id.LightButton);
 		focusButton = (ToggleButton) findViewById(R.id.AutoFocusButton);
 		soundButton = (ToggleButton) findViewById(R.id.SoundButton);
 		
-		lightButton.setChecked(false);
+		//lightButton.setChecked(false);
 		focusButton.setChecked(true);
 		soundButton.setChecked(false);
 		
@@ -75,6 +76,15 @@ public class MainActivity extends Activity implements Camera.AutoFocusCallback {
 
 		controller = new CBController(this,
 				(FrameLayout) findViewById(R.id.previewFrame));
+
+		Button memoButton = (Button)findViewById(R.id.memoButton);
+		memoButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getApplication(),ListActivity.class);
+				startActivity(intent);
+			}
+		});
 	}
 
 	@Override
@@ -188,10 +198,10 @@ public class MainActivity extends Activity implements Camera.AutoFocusCallback {
 		return true;
 	}
 	
-	public void onLightButton(View v) {
+	/*public void onLightButton(View v) {
 		Log.d("CBR", "onLightButton: " + lightButton.isChecked());
 		controller.setLight(lightButton.isChecked());
-	}
+	}*/
 	
 	public void onSoundButton(View v) {
 		Log.d("CBR", "onSoundButton: " + soundButton.isChecked());

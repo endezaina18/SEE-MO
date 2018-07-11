@@ -26,11 +26,13 @@ public class CustomOpenHelper extends SQLiteOpenHelper {
          * 引数1 ・・・ id：列名 , INTEGER：数値型 , PRIMATY KEY：テーブル内の行で重複無し , AUTOINCREMENT：1から順番に振っていく
          * 引数2 ・・・ uuid：列名 , TEXT：文字列型
          * 引数3 ・・・ body：列名 , INTEGER：数値型
+         * 引数4 ・・・ status：列名,INTEGER：整数型
          */
         db.execSQL("CREATE TABLE MEMO_TABLE (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "uuid TEXT, " +
-                "body TEXT)");
+                "body TEXT,"+
+                "status INTEGER)");/*0:既存 1:削除された*/
 
     }
 
