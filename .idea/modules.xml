@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/SEE-MO.iml" filepath="$PROJECT_DIR$/SEE-MO.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/samplecbr_dev.iml" filepath="$PROJECT_DIR$/samplecbr_dev.iml" />
     </modules>
   </component>
 </project>
