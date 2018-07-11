@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "jp.colorbit.samplecbr"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 27
 
     }
