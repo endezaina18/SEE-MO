@@ -1,11 +1,14 @@
 package jp.colorbit.samplecbr;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
@@ -86,6 +89,8 @@ public class MainActivity extends Activity implements Camera.AutoFocusCallback {
 			}
 		});
 	}
+
+
 
 	@Override
 	protected void onDestroy() {

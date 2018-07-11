@@ -83,7 +83,8 @@ public class CreateMemoActivity extends AppCompatActivity {
                     if(newFlag){
                         // 新規作成の場合
                         // 新しくuuidを発行する
-                        id = UUID.randomUUID().toString();
+                        //id = UUID.randomUUID().toString();
+                        id="0";
                         // INSERT
                         db.execSQL("insert into MEMO_TABLE(uuid, body,status) VALUES('"+ id +"', '"+ bodyStr +"',0)");
                     }else{

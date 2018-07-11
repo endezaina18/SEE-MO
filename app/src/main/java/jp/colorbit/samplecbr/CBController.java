@@ -9,6 +9,8 @@ import jp.colorbit.decodelib.CBUtils;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -55,7 +57,7 @@ public class CBController implements SurfaceHolder.Callback,
 	private int shutterSoundId;
 	private boolean isSoundOn;
 
-	public CBController(Activity activity, FrameLayout previewFrame) {	//読み込んだ時に表示する枠やテキストの色の変更
+	public CBController(Activity activity, FrameLayout previewFrame)  {	//読み込んだ時に表示する枠やテキストの色の変更
 		this.activity = activity;
 		
 		CBDecoder.initialize(CBDecoder.Preset.BASIC_CB);
@@ -218,7 +220,7 @@ public class CBController implements SurfaceHolder.Callback,
 		}
 	}
 	
-	private void drawInfoLayer(CBCode[] codes, long time) {
+	private void drawInfoLayer(CBCode[] codes, long time)  {
 		if (camBitmap == null) {
 			return;
 		}
@@ -269,6 +271,7 @@ public class CBController implements SurfaceHolder.Callback,
 			Point[] detectPolygon = code.getDetectPolygon();
 			float[] points = new float[2 * detectPolygon.length];
 			int i = 0;
+
 			for (Point pt: detectPolygon) {
 				points[i++] = pt.x;
 				points[i++] = pt.y;
@@ -294,12 +297,31 @@ public class CBController implements SurfaceHolder.Callback,
 			cx /= detectPolygon.length;
 			cy /= detectPolygon.length;
 			//カラービットの内容表示？
-			c.drawText("" + code.getId(), cx, cy, textPaint);
+			String memoid = CodeToString(code);
+			String memo = loadData(memoid);
+			c.drawText(memo, cx, cy, textPaint);
 		}
 
 		infoSurface.getHolder().unlockCanvasAndPost(c);
 	}
-	
+
+	public String loadData(String find){
+		CustomOpenHelper helper = new CustomOpenHelper(this.activity);
+		SQLiteDatabase db = helper.getReadableDatabase();
+
+		String query ="select body from MEMO_TABLE where uuid =" +find ;
+		String result ="";
+
+		if(db!=null){
+			Cursor c =db.rawQuery(query,null);
+			if(c.moveToFirst()){
+				result=c.getString(0);
+			}
+		}
+		//String result=find;
+		return result;
+
+	}
 	// Camera.PreviewCallback
 	@Override
 	public void onPreviewFrame(byte[] data, Camera camera) {
@@ -313,9 +335,10 @@ public class CBController implements SurfaceHolder.Callback,
 		if (isSoundOn && codes.length > 0) {
 			soundPool.play(shutterSoundId, 1, 1, 0, 0, 1);
 		}
-		
+
 		drawInfoLayer(codes, d);
-		
+
+
 		camera.addCallbackBuffer(data);
 	}
 	
@@ -451,12 +474,11 @@ public class CBController implements SurfaceHolder.Callback,
 		}
 	}
 
-	public void ReadMemo(CBCode  codes){
+	public String CodeToString(CBCode  codes){
 		String memocode;
 		memocode=Long.toString(codes.getId());
-
+		return memocode;
 	}
-
 
 
 }

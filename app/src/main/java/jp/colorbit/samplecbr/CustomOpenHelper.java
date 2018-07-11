@@ -4,11 +4,15 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.io.IOError;
+import java.io.IOException;
+
 public class CustomOpenHelper extends SQLiteOpenHelper {
     // データベース名
-    static final private String DBName = "MEMO_DB";
+    static final  String DBName = "MEMO_DB";
     // データベースのバージョン(2,3と挙げていくとonUpgradeメソッドが実行される)
     static final private int VERSION = 1;
+    static final String ID = "uuid";
 
     // コンストラクタ　以下のように呼ぶこと
     public CustomOpenHelper(Context context){
@@ -47,4 +51,6 @@ public class CustomOpenHelper extends SQLiteOpenHelper {
         // 新しくテーブルを作成する
         onCreate(db);
     }
+
+
 }
