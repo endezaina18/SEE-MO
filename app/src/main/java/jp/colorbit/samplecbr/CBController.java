@@ -55,6 +55,8 @@ public class CBController implements SurfaceHolder.Callback,
 	
 	private final Paint textPaint;
 
+	private final Paint textPaint2;
+
 	private final Paint linePaint;
 	
 	private final SoundPool soundPool;
@@ -84,6 +86,13 @@ public class CBController implements SurfaceHolder.Callback,
 		textPaint.setTextSize(TEXT_SIZE * screenDensity);
 		textPaint.setTextAlign(Paint.Align.CENTER);
 		textPaint.setTypeface(Typeface.createFromAsset(assets,"rounded-mgenplus-1c-bold.ttf"));
+
+
+		textPaint2 = new Paint();
+		textPaint2.setColor(Color.BLACK);
+		textPaint2.setTextSize(TEXT_SIZE * screenDensity*(float)2.00);
+		textPaint2.setTextAlign(Paint.Align.CENTER);
+		textPaint2.setTypeface(Typeface.createFromAsset(assets,"rounded-mgenplus-1c-bold.ttf"));
 
 		//枠
 		linePaint = new Paint();
@@ -316,12 +325,12 @@ public class CBController implements SurfaceHolder.Callback,
 			for(j=0,i=0;i < memo.length();i++){
 				sbr = String.valueOf(memo.charAt(i));
 				if(sbr.equals(BR)) {
-					c.drawText(memo.substring(j,i), cx-10, cy+k, textPaint);
-					j=i+1;k+=50;
+					c.drawText(memo.substring(j,i), cx-10, cy+k, textPaint2);
+					j=i+1;k+=100;
 				}
 			}
-			if(j>=0) c.drawText(memo.substring(j,i), cx-10, cy+k, textPaint);
-				else c.drawText(memo, cx, cy, textPaint);
+			if(j>=0) c.drawText(memo.substring(j,i), cx-10, cy+k, textPaint2);
+				else c.drawText(memo, cx, cy, textPaint2);
 			//c.drawText(memo, cx, cy, textPaint);
 		}
 
