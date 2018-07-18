@@ -8,6 +8,7 @@ import jp.colorbit.decodelib.CBDecoder;
 import jp.colorbit.decodelib.CBUtils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,6 +21,7 @@ import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.SurfaceTexture;
+import android.graphics.Typeface;
 import android.hardware.Camera;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -51,6 +53,7 @@ public class CBController implements SurfaceHolder.Callback,
 	private String decodeParam;
 	
 	private final Paint textPaint;
+
 	private final Paint linePaint;
 	
 	private final SoundPool soundPool;
@@ -73,15 +76,17 @@ public class CBController implements SurfaceHolder.Callback,
 
 		//テキスト文字
 		textPaint = new Paint();
-		textPaint.setColor(Color.YELLOW);
+		textPaint.setColor(Color.BLACK);
 		textPaint.setTextSize(TEXT_SIZE * screenDensity);
 		textPaint.setTextAlign(Paint.Align.CENTER);
+		textPaint.setTypeface(Typeface.DEFAULT_BOLD);
 
 		//枠
 		linePaint = new Paint();
-		linePaint.setColor(Color.RED);
-		linePaint.setStyle(Paint.Style.STROKE);
-		linePaint.setStrokeWidth(3);
+		//linePaint.setColor(Color.WHITE);
+		linePaint.setARGB(180,255,255,255);
+		linePaint.setStyle(Paint.Style.FILL);
+		//linePaint.setStrokeWidth(3);
 		
 		soundPool =	new SoundPool(4, AudioManager.STREAM_MUSIC, 0);		
 		shutterSoundId = soundPool.load(activity, R.raw.shutter, 1);
@@ -296,9 +301,11 @@ public class CBController implements SurfaceHolder.Callback,
 
 			cx /= detectPolygon.length;
 			cy /= detectPolygon.length;
+
 			//カラービットの内容表示？
 			String memoid = CodeToString(code);
 			String memo = loadData(memoid);
+
 			c.drawText(memo, cx, cy, textPaint);
 		}
 
@@ -309,7 +316,7 @@ public class CBController implements SurfaceHolder.Callback,
 		CustomOpenHelper helper = new CustomOpenHelper(this.activity);
 		SQLiteDatabase db = helper.getReadableDatabase();
 
-		String query ="select body from MEMO_TABLE where uuid =" +find ;
+		String query ="select body from MEMO_TABLE where status=0 AND uuid =" +find ;
 		String result ="";
 
 		if(db!=null){

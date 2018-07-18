@@ -12,7 +12,6 @@ public class CustomOpenHelper extends SQLiteOpenHelper {
     static final  String DBName = "MEMO_DB";
     // データベースのバージョン(2,3と挙げていくとonUpgradeメソッドが実行される)
     static final private int VERSION = 1;
-    static final String ID = "uuid";
 
     // コンストラクタ　以下のように呼ぶこと
     public CustomOpenHelper(Context context){
