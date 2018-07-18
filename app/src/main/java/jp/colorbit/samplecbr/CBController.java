@@ -61,6 +61,8 @@ public class CBController implements SurfaceHolder.Callback,
 	private int shutterSoundId;
 	private boolean isSoundOn;
 
+	static final String BR = System.getProperty("line.separator");/*改行コード*/
+
 	public CBController(Activity activity, FrameLayout previewFrame)  {	//読み込んだ時に表示する枠やテキストの色の変更
 		this.activity = activity;
 		
@@ -307,8 +309,20 @@ public class CBController implements SurfaceHolder.Callback,
 			//カラービットの内容表示？
 			String memoid = CodeToString(code);
 			String memo = loadData(memoid);
-
-			c.drawText(memo, cx, cy, textPaint);
+			String sbr;
+			int j,k=1;
+			//if(memo.indexOf(BR)>=1)memo="aaa";
+			/*複数行ある時は改行*/
+			for(j=0,i=0;i < memo.length();i++){
+				sbr = String.valueOf(memo.charAt(i));
+				if(sbr.equals(BR)) {
+					c.drawText(memo.substring(j,i), cx-10, cy+k, textPaint);
+					j=i+1;k+=50;
+				}
+			}
+			if(j>=0) c.drawText(memo.substring(j,i), cx-10, cy+k, textPaint);
+				else c.drawText(memo, cx, cy, textPaint);
+			//c.drawText(memo, cx, cy, textPaint);
 		}
 
 		infoSurface.getHolder().unlockCanvasAndPost(c);
