@@ -342,6 +342,9 @@ public class CBController implements SurfaceHolder.Callback,
 			}
 		}
 		//String result=find;
+		if(result==""){
+			result="メモが登録されていません";
+		}
 		return result;
 
 	}
