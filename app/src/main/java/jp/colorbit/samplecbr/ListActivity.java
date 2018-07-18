@@ -22,7 +22,7 @@ import java.util.HashMap;
 public class ListActivity extends AppCompatActivity {
     // MemoOpenHelperクラスを定義
     CustomOpenHelper helper = null;
-
+    static final String BR = System.getProperty("line.separator");/*改行コード*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,9 +49,21 @@ public class ListActivity extends AppCompatActivity {
                 // 取得したカラムの順番(0から始まる)と型を指定してデータを取得する
                 String uuid = c.getString(0);
                 String body = c.getString(1);
-                if(body.length() > 10){
+                if(body.length() > 1){
                     // リストに表示するのは10文字まで
-                    body = body.substring(0, 11) + "...";
+                    //body = body.substring(0, 11) + "...";
+                    String sbr,cont=(body.length()>=10?"...":"");
+                    int i;
+                    for(i=0;i < body.length();i++){
+                        sbr = String.valueOf(body.charAt(i));
+                        if(sbr.equals(BR)) {
+                            cont="...";
+                            break;
+                        }else if(sbr.equals(null))
+                            i=11;
+                    }
+                    if(i>=11)i=11;
+                    body = body.substring(0, i) + cont;
                 }
                 // 引数には、(名前,実際の値)という組合せで指定します　名前はSimpleAdapterの引数で使用します
                 data.put("body",body);
