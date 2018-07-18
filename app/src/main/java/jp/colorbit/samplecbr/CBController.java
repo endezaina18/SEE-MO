@@ -10,6 +10,7 @@ import jp.colorbit.decodelib.CBUtils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -75,11 +76,12 @@ public class CBController implements SurfaceHolder.Callback,
 		screenDensity = activity.getResources().getDisplayMetrics().density;
 
 		//テキスト文字
+		AssetManager assets=activity.getResources().getAssets();
 		textPaint = new Paint();
 		textPaint.setColor(Color.BLACK);
 		textPaint.setTextSize(TEXT_SIZE * screenDensity);
 		textPaint.setTextAlign(Paint.Align.CENTER);
-		textPaint.setTypeface(Typeface.DEFAULT_BOLD);
+		textPaint.setTypeface(Typeface.createFromAsset(assets,"rounded-mgenplus-1c-bold.ttf"));
 
 		//枠
 		linePaint = new Paint();
