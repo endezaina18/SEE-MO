@@ -15,19 +15,22 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context="com.android.tatsu.simplememo.ListActivity">
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="タップして削除 長押しで編集"/>
         <ListView
             android:id="@+id/memoList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="9"/>
+            android:layout_weight="8"/>
 
         <Button
             android:id="@+id/newButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1"
-            android:text="新規作成する"
+            android:text="新規作成"
             />
 
 
@@ -39,13 +42,13 @@
         <Button
             android:id="@+id/delete_history"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_weight="5"
             android:text="削除履歴" />
         <Button
             android:id="@+id/camera"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_weight="5"
             android:text="カメラ"/>
     </LinearLayout>

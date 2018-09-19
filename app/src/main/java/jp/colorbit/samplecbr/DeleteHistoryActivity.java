@@ -101,14 +101,14 @@ public class DeleteHistoryActivity extends AppCompatActivity {
                 TextView idTextView = (TextView) two.getText2();
                 final String idStr = (String) idTextView.getText();
 
-                //押しで確認ダイアログ
+                //クリックで確認ダイアログ
                 AlertDialog.Builder alertD = new AlertDialog.Builder(DeleteHistoryActivity.this);
                 // alertD.setTitle("確認");
                 alertD.setMessage("操作を選んでください");
                 alertD.setPositiveButton("完全削除", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // 長押しした項目をデータベースから削除
+                        // クリックした項目をデータベースから削除
                         SQLiteDatabase db = helper.getWritableDatabase();
                         try {
                             //db.execSQL("DELETE FROM MEMO_TABLE WHERE uuid = '" + idStr + "'");
@@ -117,7 +117,7 @@ public class DeleteHistoryActivity extends AppCompatActivity {
                             db.close();
                         }
 
-                        // 長押しした項目を画面から削除
+                        // クリックした項目を画面から削除
                         memoList.remove(position);
                         simpleAdapter.notifyDataSetChanged();
                     }
@@ -144,17 +144,51 @@ public class DeleteHistoryActivity extends AppCompatActivity {
             }
         });
         /**
-         * 戻るボタン処理
+         * ALL CLEARボタンの処理
          */
-        // idがnewButtonのボタンを取得
-        Button newButton = (Button) findViewById(R.id.back);
+        // idがallButtonのボタンを取得
+        Button allButton = (Button) findViewById(R.id.all_clear);
         // clickイベント追加
-        newButton.setOnClickListener(new View.OnClickListener() {
+        allButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // CreateMemoActivityへ遷移
-                Intent intent = new Intent(getApplication(), jp.colorbit.samplecbr.ListActivity.class);
+                SQLiteDatabase db = helper.getWritableDatabase();
+               try {
+                   // rawQueryというSELECT専用メソッドを使用してデータを取得する
+                   Cursor c = db.rawQuery("select uuid from MEMO_TABLE WHERE status=1", null);
+                   // Cursorの先頭行があるかどうか確認
+                   boolean next = c.moveToFirst();
+
+                   // 取得した全ての行を取得
+                   while (next) {
+                       // 取得したカラムの順番(0から始まる)と型を指定してデータを取得する
+                       String did = c.getString(0);
+                       db.execSQL("DELETE FROM MEMO_TABLE WHERE uuid = '" + did + "'");
+
+                       next = c.moveToNext();
+                   }
+               }finally {
+                   db.close();
+                   // ListActivityへ遷移
+                   Intent intent = new Intent(DeleteHistoryActivity.this, jp.colorbit.samplecbr.ListActivity.class);
+                   //intent.putExtra("id", "");
+                   startActivity(intent);
+               }
+            }
+        });
+        /**
+         * 戻るボタン処理
+         */
+        // idがbackButtonのボタンを取得
+        Button backButton = (Button) findViewById(R.id.back);
+        // clickイベント追加
+        backButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // ListActivityへ遷移
+                Intent intent = new Intent(DeleteHistoryActivity.this, jp.colorbit.samplecbr.ListActivity.class);
                 //intent.putExtra("id", "");
                 startActivity(intent);
             }

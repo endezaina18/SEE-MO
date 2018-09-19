@@ -39,7 +39,7 @@ public class ListActivity extends AppCompatActivity {
         SQLiteDatabase db = helper.getWritableDatabase();
         try {
             // rawQueryというSELECT専用メソッドを使用してデータを取得する
-            Cursor c = db.rawQuery("select uuid, body from MEMO_TABLE where status = 0", null);
+            Cursor c = db.rawQuery("select uuid, body from MEMO_TABLE where status = 0 ORDER BY uuid", null);
             // Cursorの先頭行があるかどうか確認
             boolean next = c.moveToFirst();
 
@@ -89,15 +89,15 @@ public class ListActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.memoList);
         listView.setAdapter(simpleAdapter);
 
-        // リスト項目をクリックした時の処理
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        // リスト項目を長押しクリックした時の処理
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
             /**
              * @param parent ListView
              * @param view 選択した項目
              * @param position 選択した項目の添え字
              * @param id 選択した項目のID
              */
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 // インテント作成  第二引数にはパッケージ名からの指定で、遷移先クラスを指定
                 Intent intent = new Intent(ListActivity.this, jp.colorbit.samplecbr.CreateMemoActivity.class);
 
@@ -109,30 +109,32 @@ public class ListActivity extends AppCompatActivity {
                 intent.putExtra("id", isStr);
                 // Activity起動
                 startActivity(intent);
+
+                return true;
             }
         });
-        // リスト項目を長押しクリックした時の処理
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+        // リスト項目をクリックした時の処理
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             /**
              * @param parent ListView
              * @param view 選択した項目
              * @param position 選択した項目の添え字
              * @param id 選択した項目のID
              */
-            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 // 選択されたビューを取得 TwoLineListItemを取得した後、text2の値を取得する
                 TwoLineListItem two = (TwoLineListItem) view;
                 TextView idTextView = (TextView) two.getText2();
                 final String idStr = (String) idTextView.getText();
 
-                /*長押しで確認ダイアログ*/
+                /*クリックで確認ダイアログ*/
                 AlertDialog.Builder alertD = new AlertDialog.Builder(ListActivity.this);
                 // alertD.setTitle("確認");
                 alertD.setMessage("削除します");
-                alertD.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                alertD.setPositiveButton("削除", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // 長押しした項目をデータベースから削除
+                        // クリック項目をデータベースから削除
                         SQLiteDatabase db = helper.getWritableDatabase();
                         try {
                             //db.execSQL("DELETE FROM MEMO_TABLE WHERE uuid = '" + idStr + "'");
@@ -141,19 +143,36 @@ public class ListActivity extends AppCompatActivity {
                             db.close();
                         }
 
-                        // 長押しした項目を画面から削除
+                        // クリック項目を画面から削除
                         memoList.remove(position);
                         simpleAdapter.notifyDataSetChanged();
                     }
                 });
-                alertD.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                alertD.setNeutralButton("完全削除", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // クリック項目をデータベースから削除
+                        SQLiteDatabase db = helper.getWritableDatabase();
+                        try {
+                            //db.execSQL("DELETE FROM MEMO_TABLE WHERE uuid = '" + idStr + "'");
+                            db.execSQL("DELETE FROM MEMO_TABLE WHERE uuid ='"+idStr+"'" );
+                        } finally {
+                            db.close();
+                        }
+
+                        // クリック項目を画面から削除
+                        memoList.remove(position);
+                        simpleAdapter.notifyDataSetChanged();
+                    }
+                });
+                alertD.setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {}
                 });
                 alertD.create().show();
 
                 // trueにすることで通常のクリックイベントを発生させない
-                return true;
+                //return true;
             }
         });
 
@@ -182,14 +201,13 @@ public class ListActivity extends AppCompatActivity {
         deleteHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(),jp.colorbit.samplecbr.DeleteHistoryActivity.class);
+                Intent intent = new Intent(ListActivity.this,jp.colorbit.samplecbr.DeleteHistoryActivity.class);
                 startActivity(intent);
             }
         });
         /**
          * カメラボタン処理
          */
-        // idがnewButtonのボタンを取得
         Button cameraButton = (Button) findViewById(R.id.camera);
         // clickイベント追加
         cameraButton.setOnClickListener(new View.OnClickListener() {
@@ -197,7 +215,7 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //EmptyActivityへ遷移
-                Intent intent = new Intent(getApplication(), jp.colorbit.samplecbr.MainActivity.class);
+                Intent intent = new Intent(ListActivity.this, jp.colorbit.samplecbr.MainActivity.class);
                 startActivity(intent);
             }
         });

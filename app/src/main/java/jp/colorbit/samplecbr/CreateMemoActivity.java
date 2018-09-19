@@ -81,10 +81,7 @@ public class CreateMemoActivity extends AppCompatActivity {
                 SQLiteDatabase db = helper.getWritableDatabase();
                 try {
                     if(newFlag){
-                        // 新規作成の場合
-                        // 新しくuuidを発行する
-                        //id = UUID.randomUUID().toString();
-                        //id="0";
+                        // メモを10個に制限
 
                         for(int i=0;i<10;i++){
                             String id2;

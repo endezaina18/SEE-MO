@@ -84,7 +84,7 @@ public class MainActivity extends Activity implements Camera.AutoFocusCallback {
 		memoButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getApplication(),ListActivity.class);
+				Intent intent = new Intent(MainActivity.this,ListActivity.class);
 				startActivity(intent);
 			}
 		});

@@ -89,7 +89,7 @@ public class CBController implements SurfaceHolder.Callback,
 
 
 		textPaint2 = new Paint();
-		textPaint2.setColor(Color.BLACK);
+		textPaint2.setARGB(200,180,180,200);
 		textPaint2.setTextSize(TEXT_SIZE * screenDensity*(float)2.00);
 		textPaint2.setTextAlign(Paint.Align.CENTER);
 		textPaint2.setTypeface(Typeface.createFromAsset(assets,"rounded-mgenplus-1c-bold.ttf"));
@@ -116,9 +116,9 @@ public class CBController implements SurfaceHolder.Callback,
 			resolutionIndex = Integer.parseInt(resolutionIndexStr);
 		} catch (NumberFormatException e) {
 		}
-
+/*デコードパラメータ設定箇所*/
 		CBDecoder.Preset preset = (CBDecoder.Preset) getEnumPrefs(prefs,
-				SettingsActivity.KEY_PRESET, CBDecoder.Preset.BASIC_CB);
+				SettingsActivity.KEY_PRESET, CBDecoder.Preset.DESIGNED_CB_HIGHSPEED);
 		CBDecoder.ColorType colorType = (CBDecoder.ColorType) getEnumPrefs(prefs,
 				SettingsActivity.KEY_COLOR_TYPE, CBDecoder.ColorType.RGB_KM);
 		
@@ -351,8 +351,10 @@ public class CBController implements SurfaceHolder.Callback,
 			}
 		}
 		//String result=find;
+        textPaint2.setTextSize(TEXT_SIZE * screenDensity*(float)2.00);
 		if(result==""){
 			result="メモが登録されていません";
+            textPaint2.setTextSize(TEXT_SIZE * screenDensity);
 		}
 		return result;
 

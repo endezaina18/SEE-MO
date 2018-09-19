@@ -29,15 +29,15 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:layout_weight="1"
-             android:text="一覧" />
+             android:text="リスト" />
   
          <ToggleButton
              android:id="@+id/AutoFocusButton"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:layout_weight="1"
-             android:textOn="@string/auto_focus"
-             android:textOff="@string/auto_focus"
+             android:textOn="オートフォーカス"
+             android:textOff="オートフォーカス"
              android:onClick="onAutoFocusButton" />
   
          <ToggleButton
@@ -45,8 +45,8 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:layout_weight="1"
-             android:textOn="@string/sound"
-             android:textOff="@string/sound"
+             android:textOn="サウンド ON"
+             android:textOff="サウンド OFF"
              android:onClick="onSoundButton" />
          
      </LinearLayout>
